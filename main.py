@@ -11,7 +11,7 @@ import pandas as pd
 import random
 import os
 
-def insertDataToYahoo(insertArr,judge):
+def insertDataToYahoo(insertArr,judge,phoneNumber,testMode):
 
     # csvファイルのファイルパスを引数に渡す
   # df = pd.read_csv('../../csv/syupin.csv', encoding='cp932')
@@ -28,8 +28,7 @@ def insertDataToYahoo(insertArr,judge):
   driver.get('https://login.yahoo.co.jp/config/login?.src=auc&lg=jp&.intl=jp&.done=https%3A%2F%2Fauctions.yahoo.co.jp%2F')
 
   id_input = driver.find_element(By.ID,"login_handle")
-  # id_input.send_keys("08061659635")
-  id_input.send_keys("09092593845")
+  id_input.send_keys(phoneNumber)
 
   next_btn = driver.find_element(By.CLASS_NAME,"ar-button_button_J2jv2")
   next_btn.click()
@@ -103,7 +102,7 @@ def insertDataToYahoo(insertArr,judge):
         case 2:
             ship_lag = "2〜3日"
         case 3:
-            ship_lag = "3〜7日"      
+            ship_lag = "3〜7日"
 
       match int(row[31]):
         case 9:
@@ -111,9 +110,9 @@ def insertDataToYahoo(insertArr,judge):
         case 10:
             closing_date = "9"
         case 11:
-            closing_date = "10"  
+            closing_date = "10"
         case 12:
-            closing_date = "11"    
+            closing_date = "11"
         case 13:
             closing_date = "12"
         case 14:
@@ -314,7 +313,6 @@ def insertDataToYahoo(insertArr,judge):
       time.sleep(wait_time)
       today = pd.Timestamp.now().normalize()
       days_later = today + pd.Timedelta(days=int(row[30]))
-      print(f'days_later:{days_later}')
       Select(driver.find_element(By.ID,"ClosingYMD")).select_by_value(days_later.strftime('%Y-%m-%d'))
 
       # 【終了日時-時刻】
@@ -352,25 +350,26 @@ def insertDataToYahoo(insertArr,judge):
       # 【即決価格の設定】
       wait_time = random.uniform(wait_range_from, wait_range_to)
       time.sleep(wait_time)
-      print(row[28])
       if not pd.isna(int(row[28])):
         driver.find_element(By.ID, "auc_BidOrBuyPrice_auction").send_keys(int(row[28]))
-      
+
       wait_time = random.uniform(wait_range_from, wait_range_to)
       time.sleep(wait_time)
+      if testMode:
+        print('テストモードを終了します')
+        time.sleep(200)
+        return
       driver.find_element(By.ID,"submit_form_btn").click()
 
       # print('step11')
       #出品ボタン
       wait_time = random.uniform(wait_range_from, wait_range_to)
       submitBtn = driver.find_element(By.CLASS_NAME,'Button--submit2')
-      print(submitBtn)
       submitBtn.click()
 
       wait_time = random.uniform(wait_range_from, wait_range_to)
       continueId = driver.find_element(By.ID, 'modFootLink')
       continueBtn = continueId.find_element(By.TAG_NAME,'a')
-      print(continueBtn)
       continueBtn.click()
 
       try:

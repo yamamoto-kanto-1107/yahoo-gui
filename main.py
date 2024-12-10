@@ -11,7 +11,7 @@ import pandas as pd
 import random
 import os
 
-def insertDataToYahoo(insertArr,judge,phoneNumber,testMode):
+def insertDataToYahoo(insertArr,judge,phoneNumber,IdNum,testMode):
 
     # csvファイルのファイルパスを引数に渡す
   # df = pd.read_csv('../../csv/syupin.csv', encoding='cp932')
@@ -122,21 +122,21 @@ def insertDataToYahoo(insertArr,judge,phoneNumber,testMode):
         case 16:
             closing_date = "15"
         case 17:
-            closing_date = "16"  
+            closing_date = "16"
         case 18:
-            closing_date = "17"                  
+            closing_date = "17"
         case 19:
-            closing_date = "18"                  
+            closing_date = "18"
         case 20:
-            closing_date = "19"                  
+            closing_date = "19"
         case 21:
-            closing_date = "20"                  
+            closing_date = "20"
         case 22:
-            closing_date = "21"                  
+            closing_date = "21"
         case 23:
-            closing_date = "22"  
+            closing_date = "22"
         case 24:
-            closing_date = "23"  
+            closing_date = "23"
 
       driver.get('https://auctions.yahoo.co.jp/jp/show/submit?category=0')
       wait = WebDriverWait(driver, 2)
@@ -199,89 +199,173 @@ def insertDataToYahoo(insertArr,judge,phoneNumber,testMode):
       html_tag.click()
 
       html_textarea = driver.find_element(By.NAME,'Description_plain_work')
-      confirmHTML='''
-        <table cellspacing="3" cellpadding="4" border="0" width="100%">
-        <tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □商品詳細      </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">    
-        ・商品は、A4サイズ（210×297mm）のイラストポスターです。<br><br>
+      if category == "2084009286":
+        confirmHTML='''
+          <table cellspacing="3" cellpadding="4" border="0" width="100%">
+          <tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □商品詳細      </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">    
+          ・商品は、A4サイズ（210×297mm）のイラストポスターです。<br><br>
 
-        ・当方がAIで作成したオリジナルの美女イラスト（サンプル画像）を高解像度にアップスケールし、<br>
-        　厚手の光沢写真用紙に印刷した商品です。<br><br>
+          ・当方がAIで作成したオリジナルの美女イラスト（サンプル画像）を高解像度にアップスケールし、<br>
+          　厚手の光沢写真用紙に印刷した商品です。<br><br>
 
-        ・最高級品質の高画質でフチなし印刷にてプリントアウトし、<br>
-        　丁寧に梱包して発送いたします！<br><br>
+          ・最高級品質の高画質でフチなし印刷にてプリントアウトし、<br>
+          　丁寧に梱包して発送いたします！<br><br>
 
-        ・お届けする実物のポスターには、「sample」の文字は入りません。<br><br>
+          ・お届けする実物のポスターには、「sample」の文字は入りません。<br><br>
 
-        ※当アカウントで販売する商品は、全て作成時に年齢設定を18歳以上にしております。<br>
-        全て当方がAIで作成したオリジナル作品（サンプルのため画質を下げてアップロードしています。）ですので、安心してご入札ください。<br><br>
-
-        </font></td></tr></tbody></table>
-        <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □梱包について      </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
-
-        ・おてがる配送ゆうパケット（全国一律230円）にて匿名発送いたします。<br>
-        　商品名は「ポスター」と記載いたします。  <br><br>
-
-        ・商品はクリアファイル（またはOPP袋）、板段ボール、防水宅配ビニール袋にて丁寧に梱包し発送いたします。<br>
-        ※外側から中身が見えないよう、プライバシーに配慮した梱包で発送いたします。<br><br>
-
+          ※当アカウントで販売する商品は、全て作成時に年齢設定を18歳以上にしております。<br>
+          全て当方がAIで作成したオリジナル作品（サンプルのため画質を下げてアップロードしています。）ですので、安心してご入札ください。<br><br>
 
           </font></td></tr></tbody></table>
+          <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □梱包について      </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
+
+          ・おてがる配送ゆうパケット（全国一律230円）にて匿名発送いたします。<br>
+          　商品名は「ポスター」と記載いたします。  <br><br>
+
+          ・商品はクリアファイル（またはOPP袋）、板段ボール、防水宅配ビニール袋にて丁寧に梱包し発送いたします。<br>
+          ※外側から中身が見えないよう、プライバシーに配慮した梱包で発送いたします。<br><br>
 
 
-        <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □発送について     </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
+            </font></td></tr></tbody></table>
 
-        ・通常、お支払いから1～3日以内に発送いたします。  <br><br>
 
-        ・万が一、発送が遅れる場合は、事前にご連絡いたしますのでご了承ください。<br><br>
+          <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □発送について     </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
+
+          ・通常、お支払いから1～3日以内に発送いたします。  <br><br>
+
+          ・万が一、発送が遅れる場合は、事前にご連絡いたしますのでご了承ください。<br><br>
+
+            </font></td></tr></tbody></table>
+
+          <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □複数購入について    </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
+
+          ・72時間以内に落札した商品は、お支払い前に限りまとめて発送が可能です。<br>
+          　落札時に取引メッセージにて、その旨をご連絡ください。  <br><br>
+
+          ・最大で15枚まで同梱発送可能です。<br><br>
+
+          ・落札後に「まとめて取引」のボタンが表示されますので、必ず「落札者様にて操作」をお願いします。<br><br>
+
+          ※操作がない場合、個別配送となりますのでご注意ください。<br>
+          ※ヤフオクのシステム上、カテゴリーが異なる場合はまとめて取引ができません。<br>
+          カテゴリーごとにまとめて取引申請をお願いいたします。<br>
+          <br><br>
+
+            </font></td></tr></tbody></table>
+
+          <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □お支払い期限について </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
+
+          ・いたずら入札防止のため、72時間以内にお手続きを行っていただけない場合には、<br>
+          　大変申し訳ございませんが落札者都合により削除させていただきます。
+
+          <br><br>
+
+            </font></td></tr></tbody></table>
+
+          <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □注意事項 </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">    
+            
+          ※ご使用のPCモニターやスマホによって、色の濃淡や画質が実物と異なる場合があります。<br><br>
+          ※プリンターでの印刷の都合上、画像と色味が若干異なることがあります。この点をご理解のうえでご入札をお願いします。<br><br>
+          ※フチなし印刷のため、サンプル画像に比べて数ミリ程度外周部分が印刷されません。<br>
+          　ご了承ください。<br><br>
+          ※若干の傷や擦れ、インク汚れがある場合がありますので、ご了承ください。<br><br>
+
+          その他ご不明な点がございましたら、お気軽にお問い合わせください。
+          <br><br>
+
+            </font></td></tr></tbody></table>
+
+
+
+          最後までお読みいただき、ありがとうございました。
+
+        '''
+      else :
+         confirmHTML=f'''
+            <table cellspacing="3" cellpadding="4" border="0" width="100%">
+          <tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □商品詳細      </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">    
+          ・商品は、A4サイズ（210×297mm）のイラストポスターです。<br><br>
+
+          アダルトカテゴリーの作品はブラウザからしか見られないので、下記のリンクからご覧ください↓<br>
+          <a href="https://auctions.yahoo.co.jp/seller/{IdNum}?sid={IdNum}&auccat=26146&is_postage_mode=1&dest_pref_code=27&b=1&n=50">アダルト商品を見る</a><br><br>
+
+          ※アダルト画像は陰部にのみボカシが入ります<br><br>
+
+          ・当方がAIで作成したオリジナルの美女イラスト（サンプル画像）を高解像度にアップスケールし、<br>
+          　厚手の光沢写真用紙に印刷した商品です。<br><br>
+
+          ・最高級品質の高画質でフチなし印刷にてプリントアウトし、<br>
+          　丁寧に梱包して発送いたします！<br><br>
+
+          ・お届けする実物のポスターには、「sample」の文字は入りません。<br><br>
+
+          ※当アカウントで販売する商品は、全て作成時に年齢設定を18歳以上にしております。<br>
+          全て当方がAIで作成したオリジナル作品（サンプルのため画質を下げてアップロードしています。）ですので、安心してご入札ください。<br><br>
 
           </font></td></tr></tbody></table>
+          <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □梱包について      </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
 
-        <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □複数購入について    </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
+          ・おてがる配送ゆうパケット（全国一律230円）にて匿名発送いたします。<br>
+          　商品名は「ポスター」と記載いたします。  <br><br>
 
-        ・72時間以内に落札した商品は、お支払い前に限りまとめて発送が可能です。<br>
-        　落札時に取引メッセージにて、その旨をご連絡ください。  <br><br>
-
-        ・最大で15枚まで同梱発送可能です。<br><br>
-
-        ・落札後に「まとめて取引」のボタンが表示されますので、必ず「落札者様にて操作」をお願いします。<br><br>
-
-        ※操作がない場合、個別配送となりますのでご注意ください。<br>
-        ※ヤフオクのシステム上、カテゴリーが異なる場合はまとめて取引ができません。<br>
-        カテゴリーごとにまとめて取引申請をお願いいたします。<br>
-        <br><br>
-
-          </font></td></tr></tbody></table>
-
-        <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □お支払い期限について </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
-
-        ・いたずら入札防止のため、72時間以内にお手続きを行っていただけない場合には、<br>
-        　大変申し訳ございませんが落札者都合により削除させていただきます。
-
-        <br><br>
-
-          </font></td></tr></tbody></table>
-
-        <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □注意事項 </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">    
-          
-        ※ご使用のPCモニターやスマホによって、色の濃淡や画質が実物と異なる場合があります。<br><br>
-        ※プリンターでの印刷の都合上、画像と色味が若干異なることがあります。この点をご理解のうえでご入札をお願いします。<br><br>
-        ※フチなし印刷のため、サンプル画像に比べて数ミリ程度外周部分が印刷されません。<br>
-        　ご了承ください。<br><br>
-        ※若干の傷や擦れ、インク汚れがある場合がありますので、ご了承ください。<br><br>
-
-        その他ご不明な点がございましたら、お気軽にお問い合わせください。
-        <br><br>
-
-          </font></td></tr></tbody></table>
+          ・商品はクリアファイル（またはOPP袋）、板段ボール、防水宅配ビニール袋にて丁寧に梱包し発送いたします。<br>
+          ※外側から中身が見えないよう、プライバシーに配慮した梱包で発送いたします。<br><br>
 
 
+            </font></td></tr></tbody></table>
 
-        最後までお読みいただき、ありがとうございました。
 
-      '''
+          <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □発送について     </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
+
+          ・通常、お支払いから1～3日以内に発送いたします。  <br><br>
+
+          ・万が一、発送が遅れる場合は、事前にご連絡いたしますのでご了承ください。<br><br>
+
+            </font></td></tr></tbody></table>
+
+          <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □複数購入について    </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
+
+          ・72時間以内に落札した商品は、お支払い前に限りまとめて発送が可能です。<br>
+          　落札時に取引メッセージにて、その旨をご連絡ください。  <br><br>
+
+          ・最大で15枚まで同梱発送可能です。<br><br>
+
+          ・落札後に「まとめて取引」のボタンが表示されますので、必ず「落札者様にて操作」をお願いします。<br><br>
+
+          ※操作がない場合、個別配送となりますのでご注意ください。<br>
+          ※ヤフオクのシステム上、カテゴリーが異なる場合はまとめて取引ができません。<br>
+          カテゴリーごとにまとめて取引申請をお願いいたします。<br>
+          <br><br>
+
+            </font></td></tr></tbody></table>
+
+          <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □お支払い期限について </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">      
+
+          ・いたずら入札防止のため、72時間以内にお手続きを行っていただけない場合には、<br>
+          　大変申し訳ございませんが落札者都合により削除させていただきます。
+
+          <br><br>
+
+            </font></td></tr></tbody></table>
+
+          <table cellspacing="3" cellpadding="4" border="0" width="100%"><tbody><tr><td bgcolor="#ffc0cb" colspan="2" align="left"><b><font color="#000000" size="3">      □注意事項 </font></b></td></tr><tr><td width="5%"></td><td width="95%" align="left"><font color="#333333" size="3">    
+            
+          ※ご使用のPCモニターやスマホによって、色の濃淡や画質が実物と異なる場合があります。<br><br>
+          ※プリンターでの印刷の都合上、画像と色味が若干異なることがあります。この点をご理解のうえでご入札をお願いします。<br><br>
+          ※フチなし印刷のため、サンプル画像に比べて数ミリ程度外周部分が印刷されません。<br>
+          　ご了承ください。<br><br>
+          ※若干の傷や擦れ、インク汚れがある場合がありますので、ご了承ください。<br><br>
+
+          その他ご不明な点がございましたら、お気軽にお問い合わせください。
+          <br><br>
+
+            </font></td></tr></tbody></table>
+
+          最後までお読みいただき、ありがとうございました。
+        '''
       html_textarea.send_keys(confirmHTML)
 
-      # 【発送元の地域の設定】    
+      # 【発送元の地域の設定】
       wait_time = random.uniform(wait_range_from, wait_range_to)
       time.sleep(wait_time)
       Select(driver.find_element(By.NAME,"loc_cd")).select_by_value(f'{location}')
@@ -355,7 +439,8 @@ def insertDataToYahoo(insertArr,judge,phoneNumber,testMode):
 
       wait_time = random.uniform(wait_range_from, wait_range_to)
       time.sleep(wait_time)
-      if testMode:
+
+      if testMode == True or testMode == 'True':
         print('テストモードを終了します')
         time.sleep(200)
         return

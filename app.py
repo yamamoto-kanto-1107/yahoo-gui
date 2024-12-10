@@ -12,7 +12,7 @@ cb_judge = [True, False]
 root = Tk()
 
 # ウィンドウサイズを指定
-root.geometry("320x240")
+root.geometry("420x340")
 
 # ウィンドウタイトルを指定
 root.title('入力フォーム')
@@ -32,9 +32,13 @@ label2.grid(row=1, column=0, sticky=E)
 label3 = ttk.Label(frame1, text='電話番号', padding=(5, 2))
 label3.grid(row=2, column=0, sticky=E)
 
+# ID
+label3 = ttk.Label(frame1, text='アカウントID', padding=(5, 2))
+label3.grid(row=3, column=0, sticky=E)
+
 # TestMode
 label3 = ttk.Label(frame1, text='TestMode', padding=(5, 2))
-label3.grid(row=3, column=0, sticky=E)
+label3.grid(row=4, column=0, sticky=E)
 
 # 開始行
 startRow = StringVar()
@@ -60,6 +64,14 @@ phone_txt = ttk.Entry(
     width=20)
 phone_txt.grid(row=2, column=1)
 
+# ID
+IDValue = StringVar()
+ID_txt = ttk.Entry(
+    frame1,
+    textvariable=IDValue,
+    width=20)
+ID_txt.grid(row=3, column=1)
+
 # Combobox
 JudgeCombo = StringVar()
 Judge_cb = ttk.Combobox(
@@ -68,17 +80,15 @@ Judge_cb = ttk.Combobox(
     values=cb_judge,
     width=20)
 Judge_cb.bind('<<ComboboxSelected>>')
-Judge_cb.grid(row=3, column=1)
+Judge_cb.grid(row=4, column=1)
 
 def btn_click():
     # 値の取得
-    start_value = int(startRow.get()) + 1  # ヘッダー分Add
-    row_contents_value = int(RowContents.get()) - 1  # ヘッダー分Del
+    start_value = int(startRow.get()) # ヘッダー分Add
+    row_contents_value = int(RowContents.get())-1 # ヘッダー分Del
     judge_combo_value = str(JudgeCombo.get())
-
-    print(judge_combo_value)
+    ID_number_value = str(IDValue.get())
     add_value = start_value + row_contents_value
-
     phone_number_value = str(PhoneNumber.get())
 
     # CSVファイル読み込み
@@ -95,7 +105,7 @@ def btn_click():
         # 挿入の確認
         ret = messagebox.askquestion('質問', 'ヤフオクに出品しますか？')
         if ret:
-            main.insertDataToYahoo(output_arr, judge_combo_value, phone_number_value,judge_combo_value)
+            main.insertDataToYahoo(output_arr, judge_combo_value, phone_number_value, ID_number_value,judge_combo_value)
         else:
             print('no')
 
@@ -104,7 +114,7 @@ button1 = ttk.Button(
     frame1, text='Insert',
     command=btn_click
 )
-button1.grid(row=4, column=1)
+button1.grid(row=5, column=1)
 
 # ウィンドウ表示継続
 root.mainloop()

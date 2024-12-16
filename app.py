@@ -92,7 +92,7 @@ def btn_click():
     phone_number_value = str(PhoneNumber.get())
 
     # CSVファイル読み込み
-    with open('./syupin.csv') as f:
+    with open('./syupin.csv', encoding="utf-8_sig") as f:
         reader = csv.reader(f)
         # 初期化
         output_arr = []

@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+from tkinter import filedialog
 import csv
 import main
 import os
@@ -12,7 +13,7 @@ cb_judge = [True, False]
 root = Tk()
 
 # ウィンドウサイズを指定
-root.geometry("420x340")
+root.geometry("440x370")
 
 # ウィンドウタイトルを指定
 root.title('入力フォーム')
@@ -36,9 +37,14 @@ label3.grid(row=2, column=0, sticky=E)
 label3 = ttk.Label(frame1, text='アカウントID', padding=(5, 2))
 label3.grid(row=3, column=0, sticky=E)
 
+# CSV出力先
+label3 = ttk.Label(frame1, text='CSVファイル',padding=(5,2))
+label3.grid(row=4, column=0,sticky=E)
+
 # TestMode
 label3 = ttk.Label(frame1, text='TestMode', padding=(5, 2))
-label3.grid(row=4, column=0, sticky=E)
+label3.grid(row=5, column=0, sticky=E)
+
 
 # 開始行
 startRow = StringVar()
@@ -72,6 +78,21 @@ ID_txt = ttk.Entry(
     width=20)
 ID_txt.grid(row=3, column=1)
 
+# CSV出力先エントリ
+InputCSV = StringVar()
+InputCSV_txt = ttk.Entry(frame1, textvariable=InputCSV,width=20)
+InputCSV_txt.grid(row=4, column=1)
+
+# CSV参照ボタン
+def dirdialog_clicked():
+    fTyp = [("", "*")]
+    iFile = os.path.abspath(os.path.dirname(__file__))
+    iFilePath = filedialog.askopenfilename(filetypes = fTyp, initialdir = iFile)
+    InputCSV.set(iFilePath)
+
+IDirButton = ttk.Button(frame1, text="参照", command=dirdialog_clicked)
+IDirButton.grid(row=4, column=2)
+
 # Combobox
 JudgeCombo = StringVar()
 Judge_cb = ttk.Combobox(
@@ -80,7 +101,8 @@ Judge_cb = ttk.Combobox(
     values=cb_judge,
     width=20)
 Judge_cb.bind('<<ComboboxSelected>>')
-Judge_cb.grid(row=4, column=1)
+Judge_cb.grid(row=5, column=1)
+
 
 def btn_click():
     # 値の取得
@@ -90,9 +112,10 @@ def btn_click():
     ID_number_value = str(IDValue.get())
     add_value = start_value + row_contents_value
     phone_number_value = str(PhoneNumber.get())
+    csv_path_value = str(InputCSV.get())
 
-    # CSVファイル読み込み
-    with open('./syupin.csv', encoding="utf-8_sig") as f:
+    ret = messagebox.askquestion('質問', 'ヤフオクに出品しますか？')
+    with open(csv_path_value) as f:
         reader = csv.reader(f)
         # 初期化
         output_arr = []
@@ -114,7 +137,7 @@ button1 = ttk.Button(
     frame1, text='Insert',
     command=btn_click
 )
-button1.grid(row=5, column=1)
+button1.grid(row=6, column=1)
 
 # ウィンドウ表示継続
 root.mainloop()

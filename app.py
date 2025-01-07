@@ -84,7 +84,7 @@ Judge_cb.grid(row=4, column=1)
 
 def btn_click():
     # 値の取得
-    start_value = int(startRow.get()) # ヘッダー分Add
+    start_value = int(startRow.get()) + 1 # ヘッダー分Add
     row_contents_value = int(RowContents.get())-1 # ヘッダー分Del
     judge_combo_value = str(JudgeCombo.get())
     ID_number_value = str(IDValue.get())
